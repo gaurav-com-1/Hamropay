@@ -101,4 +101,4 @@ export default function BuyPage({ params: { lang } }: { params: { lang: Locale }
       )}
     </>
   );
-}
+} 
