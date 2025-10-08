@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const postData = await getPostData(params.lang, params.id);
     return { title: postData.title };
-  } catch (error) {
+  } catch (_error) {
     return { title: 'Post Not Found' };
   }
 }
@@ -35,9 +35,6 @@ export default async function Post({ params }: Props) {
     const allPosts = getSortedPostsData(params.lang);
     const dictionary = await getDictionary(params.lang);
 
-    // Logic for finding related posts:
-    // 1. Filter out the current post from the list of all posts.
-    // 2. Take the first 3 posts from the remaining list.
     const relatedPosts = allPosts
       .filter(post => post.id !== params.id)
       .slice(0, 3);
@@ -107,7 +104,7 @@ export default async function Post({ params }: Props) {
         </div>
       </ArticleLayout>
     );
-  } catch (error) {
+  } catch (_error) {
     notFound();
   }
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 
-// The Particle class from your original code
 class Particle {
     x: number; y: number; directionX: number; directionY: number; size: number; color: string;
     ctx: CanvasRenderingContext2D; 
@@ -41,19 +40,19 @@ export const ParticleCanvas = () => {
 
         const setCanvasSize = () => {
             canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight; // Cover only the viewport
+            canvas.height = window.innerHeight;
         };
 
         const init = () => {
             particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 12000;
+            const numberOfParticles = (canvas.height * canvas.width) / 12000;
             for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 1.5) + 0.5;
-                let x = Math.random() * canvas.width;
-                let y = Math.random() * canvas.height;
-                let directionX = (Math.random() * 0.4) - 0.2;
-                let directionY = (Math.random() * 0.4) - 0.2;
-                let color = 'rgba(255, 255, 255, 0.15)';
+                const size = (Math.random() * 1.5) + 0.5;
+                const x = Math.random() * canvas.width;          
+                const y = Math.random() * canvas.height;         
+                const directionX = (Math.random() * 0.4) - 0.2;
+                const directionY = (Math.random() * 0.4) - 0.2;
+                const color = 'rgba(255, 255, 255, 0.15)';       
                 particlesArray.push(new Particle(x, y, directionX, directionY, size, color, ctx));
             }
         };
@@ -62,8 +61,8 @@ export const ParticleCanvas = () => {
             let opacityValue = 1;
             for (let a = 0; a < particlesArray.length; a++) {
                 for (let b = a; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) ** 2) + ((particlesArray[a].y - particlesArray[b].y) ** 2);
-                    let connectDistance = (canvas.width / 8) * (canvas.height / 8);
+                    const distance = ((particlesArray[a].x - particlesArray[b].x) ** 2) + ((particlesArray[a].y - particlesArray[b].y) ** 2);
+                    const connectDistance = (canvas.width / 8) * (canvas.height / 8);
                     if (distance < connectDistance) {
                         opacityValue = 1 - (distance / 20000);
                         ctx.strokeStyle = `rgba(255, 255, 255, ${opacityValue * 0.08})`;

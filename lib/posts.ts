@@ -12,17 +12,13 @@ export function getSortedPostsData(lang: Locale) {
   const fileNames = fs.readdirSync(langDirectory)
   
   const allPostsData = fileNames.map(fileName => {
-    // Remove ".md" from file name to get id (slug)
     const id = fileName.replace(/\.md$/, '')
 
-    // Read markdown file as string
     const fullPath = path.join(langDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
 
-    // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents)
 
-    // Combine the data with the id
     return {
       id,
       ...(matterResult.data as { 
@@ -47,13 +43,9 @@ export function getSortedPostsData(lang: Locale) {
   })
 }
 
-/**
- * Gets all possible paths for blog posts across all languages.
- * This is used by Next.js for generating static pages at build time.
- */
 export function getAllPostIds() {
     const locales: Locale[] = ['en', 'ne'];
-    let paths: { params: { lang: string; id: string } }[] = [];
+    const paths: { params: { lang: string; id: string } }[] = [];
 
     locales.forEach(lang => {
         const langDirectory = path.join(postsDirectory, lang);
@@ -76,10 +68,7 @@ export function getAllPostIds() {
     return paths;
 }
 
-/**
- * Reads a single post's data and content by its ID (slug) and language.
- * It also converts the Markdown content into an HTML string.
- */
+
 export async function getPostData(lang: Locale, id: string) {
     const fullPath = path.join(postsDirectory, lang, `${id}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -104,12 +93,9 @@ export async function getPostData(lang: Locale, id: string) {
     };
 }
 
-/**
- * Gets a lightweight list of all posts across all languages for client-side search.
- */
 export function getPostsForSearch() {
   const locales: Locale[] = ['en', 'ne'];
-  let allPosts: { id: string; lang: Locale; title: string; excerpt: string; category: string; }[] = [];
+  const allPosts: { id: string; lang: Locale; title: string; excerpt: string; category: string; }[] = [];
 
   locales.forEach(lang => {
       const langDirectory = path.join(postsDirectory, lang);

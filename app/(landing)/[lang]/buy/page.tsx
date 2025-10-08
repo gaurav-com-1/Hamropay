@@ -1,24 +1,28 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getDictionary } from "@/lib/dictionary";
 import { Locale } from "@/i18n.config";
 import Link from 'next/link';
-import { Phone, Mail, X as CloseIcon } from 'lucide-react';
+import { Phone, Mail } from 'lucide-react'; // Removed unused CloseIcon
 import { ParticleCanvas } from '@/components/ParticleCanvas';
 
-// We fetch data in a client component using a wrapper function
+// Define the type for our dictionary slice
+type BuyPageDictionary = Awaited<ReturnType<typeof getDictionary>>['buy_page'];
+
+// Wrapper function to fetch data in a client component
 async function getPageDictionary(lang: Locale) {
   return await getDictionary(lang);
 }
 
 export default function BuyPage({ params: { lang } }: { params: { lang: Locale }}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dict, setDict] = useState<any>(null);
+  // Give the state a proper type instead of 'any'
+  const [dict, setDict] = useState<BuyPageDictionary | null>(null);
 
-  useState(() => {
+  useEffect(() => {
     getPageDictionary(lang).then(d => setDict(d.buy_page));
-  });
+  }, [lang]);
 
   if (!dict) {
     return <div className="bg-[#0c0c0c] min-h-screen"></div>; // Loading state
@@ -44,7 +48,7 @@ export default function BuyPage({ params: { lang } }: { params: { lang: Locale }
             <div className="bg-[#d5232f] text-white py-2 px-8 rounded-md font-black text-2xl lg:text-[3.5rem] mb-6 mt-16 shadow-[0_4px_15px_rgba(229,68,79,0.2)]">
                 {dict.for_sale_tag}
             </div>
-            <h1 className="text-5xl sm:text-6xl lg:text-[6rem] font-black tracking-tighter break-words -mt-2 text-white">
+            <h1 className="text-5xl sm:text-6xl lg:text-[6rem] font-black tracking-tighter break-words -mt-2">
                 {dict.domain_name}
             </h1>
             <div className="flex items-center gap-4 my-6 text-xl lg:text-[1.9rem]">
@@ -71,7 +75,6 @@ export default function BuyPage({ params: { lang } }: { params: { lang: Locale }
         </footer>
       </div>
 
-      {/* Modal */}
       {isModalOpen && (
         <div 
           className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-center items-center p-4 transition-opacity duration-300"
@@ -79,7 +82,7 @@ export default function BuyPage({ params: { lang } }: { params: { lang: Locale }
         >
           <div 
             className="bg-[#1a1a1a] p-10 rounded-xl w-full max-w-md relative shadow-2xl border border-gray-700 transition-transform duration-300 scale-100"
-            onClick={(e) => e.stopPropagation()}  
+            onClick={(e) => e.stopPropagation()}
           >
             <button onClick={() => setIsModalOpen(false)} className="absolute top-2 right-4 text-gray-400 text-4xl hover:text-white transition-colors">
               &times;
