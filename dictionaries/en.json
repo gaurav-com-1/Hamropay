@@ -1,0 +1,131 @@
+{
+  "header": {
+    "home": "Home",
+    "compare": "Compare",
+    "articles": "Articles",
+    "glossary": "Glossary",
+    "contact": "Contact",
+    "tools": "Tools",
+    "site_name_part1": "Hamro",
+    "site_name_part2": "PayGuide",
+    "copy_email_tooltip": "Click to copy email",
+    "copy_success_message": "Email copied to clipboard!",
+    "search_category_articles": "Blog Articles"
+    
+  },
+  "home": {
+    "title": "Smart Financial Insights",
+    "subtitle": "Your trusted partner in navigating the world of finance. We provide clear, concise, and actionable advice.",
+    "other_featured_posts": "Other featured posts",
+    "recent_posts": "Recent Posts",
+    "all_posts": "All Posts",
+    "domain_sale_title": "Domain For Sale",
+    "view_details_cta": "View Details",
+    "featured_post_title": "Featured Posts",
+    "tools_section_title": "Financial Tools"
+  },
+  "compare": {
+    "title": "E-Wallet Comparison",
+    "subtitle": "A quick comparison of popular digital wallets in the region.",
+    "feature": "Feature",
+    "esewa": "eSewa",
+    "khalti": "Khalti",
+    "imepay": "IME Pay",
+    "transaction_fee": "Transaction Fee",
+    "bank_transfer": "Bank Transfer",
+    "qr_payment": "QR Payment",
+    "mobile_topup": "Mobile Topup",
+    "low": "Low",
+    "variable": "Variable",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "articles": {
+    "title": "Our Latest Articles",
+    "subtitle": "Stay updated with the latest trends and advice in finance.",
+    "read_more": "Read More",
+    "related_posts": "Continue Reading"
+  },
+  "glossary": {
+    "title": "Financial Glossary",
+    "subtitle": "Key financial terms and definitions to enhance your knowledge."
+  },
+  "footer": {
+    "copyright": "© 2024 Financial Blog. All rights reserved."
+  },
+  "buy_page": {
+    "phone": "(+977) 980-102-6514",
+    "email": "info@jomerchants.com",
+    "for_sale_tag": "For Sale!",
+    "domain_name": "hamropay.com",
+    "estimated_value": "Estimated value",
+    "price": "$5500",
+    "description": "21 Years old premium domain name available for instantly purchase. Invest in a premium domain name to launch your brand.",
+    "go_to_blog": "GO TO BLOGS PAGE",
+    "make_an_offer": "MAKE AN OFFER",
+    "copyright": "©2025. All Rights Reserved."
+  },
+  "contact_page": {
+    "title": "Get in Touch",
+    "subtitle": "Have a question or a proposal? Feel free to reach out using the form below.",
+    "name_label": "Your Name",
+    "email_label": "Your Email",
+    "message_label": "Your Message",
+    "submit_button": "Send Message",
+    "success_title": "Thank You!",
+    "success_message": "Your message has been sent. We will get back to you shortly."
+  },
+    "tools_page": {
+    "title": "Explore Our Tools",
+    "subtitle": "A collection of calculators and planners to help you manage your finances.",
+    "try_out_cta": "Try Out",
+    "use_tool_cta": "Use Tool"
+  },
+  "emi_calculator_page": {
+    "title": "Loan Calculator",
+    "disclaimer": "The calculated amount is approximate. The exact terms of the loan are determined individually.",
+    "amount_label": "How much money do you need?",
+    "tenure_label": "How many months do you need?",
+    "rate_label": "Annual Interest Rate (%)",
+    "you_will_pay": "You Will Pay",
+    "per_month": "Per Month",
+    "in_total": "In Total",
+    "principal": "Principal",
+    "interest": "Interest"
+  },
+  "compound_interest_page": {
+    "title": "Maximize Your Growth with Our Compound Interest Calculator",
+    "subtitle": "Calculate your compound interest",
+    "description": "Compound interest is when the interest you earn, earns interest.",
+    "initial_investment": "Initial Investment",
+    "monthly_contribution": "Monthly Contribution",
+    "years_to_grow": "Years to Grow",
+    "annual_interest_rate": "Annual Interest Rate (%)",
+    "compounding_frequency": "Compounding Frequency",
+    "frequencies": {
+      "annually": "Annually",
+      "semi_annually": "Semi-Annually",
+      "quarterly": "Quarterly",
+      "monthly": "Monthly"
+    },
+    "estimated_savings": "Your estimated savings",
+    "future_value": "Future Value",
+    "total_contributions": "Total Contributions",
+    "total_interest": "Total Interest"
+  },
+  "budget_planner_page": {
+    "title": "Simple Budget Planner",
+    "subtitle": "Track your income and expenses to take control of your finances.",
+    "total_income": "Total Income",
+    "total_expenses": "Total Expenses",
+    "remaining_balance": "Remaining Balance",
+    "add_transaction": "Add New Transaction",
+    "income": "Income",
+    "expense": "Expense",
+    "description_placeholder": "e.g., Salary, Groceries, Rent",
+    "amount_placeholder": "Amount",
+    "add_button": "Add",
+    "recent_transactions": "Recent Transactions",
+    "no_transactions": "No transactions yet. Add one to get started!"
+  }
+}
