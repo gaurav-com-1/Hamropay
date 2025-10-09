@@ -7,32 +7,45 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArticleLayout } from '@/components/ArticleLayout';
 import { SocialShareButtons } from '@/components/SocialShareButtons';
+import React from 'react'; // Import React for FC type
 
-// This is the direct props type for the generateMetadata function
-type MetadataProps = {
-  params: { id: string; lang: Locale };
+// Define the shape of the params for clarity and reuse
+type PageParams = {
+  id: string;
+  lang: Locale;
 };
 
-export async function generateMetadata({ params }: MetadataProps): Promise<Metadata> {
+// ======================= THE MAIN FIX IS HERE =======================
+// Define a clear props type for the page component
+interface PostPageProps {
+  params: PageParams;
+}
+
+// Type for the metadata function props
+interface MetadataProps {
+  params: PageParams;
+}
+// ====================================================================
+
+export const generateMetadata = async ({ params }: MetadataProps): Promise<Metadata> => {
   try {
     const postData = await getPostData(params.lang, params.id);
     return { title: postData.title };
-  } catch { // FIX: Removed unused _error variable
+  } catch {
     return { title: 'Post Not Found' };
   }
-}
+};
 
-export async function generateStaticParams() {
-    const paths = getAllPostIds();
-    return paths.map(path => ({
-        lang: path.params.lang,
-        id: path.params.id
-    }));
-}
+export const generateStaticParams = async () => {
+  const paths = getAllPostIds();
+  return paths.map(path => ({
+    lang: path.params.lang,
+    id: path.params.id
+  }));
+};
 
-// ===== THE MAIN FIX IS HERE =====
-// We are typing the props directly in the function signature, not with a separate type alias.
-export default async function Post({ params }: { params: { id: string; lang: Locale } }) {
+// Use React.FC and explicitly type it as an async component
+const Post: React.FC<PostPageProps> = async ({ params }) => {
   try {
     const postData = await getPostData(params.lang, params.id);
     const allPosts = getSortedPostsData(params.lang);
@@ -107,3 +120,5 @@ export default async function Post({ params }: { params: { id: string; lang: Loc
     notFound();
   }
 }
+
+export default Post;
