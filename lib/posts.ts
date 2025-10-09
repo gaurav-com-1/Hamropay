@@ -13,10 +13,8 @@ export function getSortedPostsData(lang: Locale) {
   
   const allPostsData = fileNames.map(fileName => {
     const id = fileName.replace(/\.md$/, '')
-
     const fullPath = path.join(langDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
-
     const matterResult = matter(fileContents)
 
     return {
@@ -27,19 +25,15 @@ export function getSortedPostsData(lang: Locale) {
         excerpt: string; 
         coverImage: string; 
         author: string; 
-        readTime: string;
+        readTime: string; 
         featured?: boolean;
       })
     }
   })
 
-  // Sort posts by date (newest first)
   return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1
-    } else {
-      return -1
-    }
+    if (a.date < b.date) return 1;
+    else return -1;
   })
 }
 
@@ -51,7 +45,6 @@ export function getAllPostIds() {
         const langDirectory = path.join(postsDirectory, lang);
         try {
             const fileNames = fs.readdirSync(langDirectory);
-
             fileNames.forEach(fileName => {
                 paths.push({
                     params: {
@@ -60,7 +53,7 @@ export function getAllPostIds() {
                     }
                 });
             });
-        } catch (error) {
+        } catch { // FIX: Removed unused error variable
             console.warn(`Directory not found for language: ${lang}. Skipping.`);
         }
     });
@@ -68,13 +61,10 @@ export function getAllPostIds() {
     return paths;
 }
 
-
 export async function getPostData(lang: Locale, id: string) {
     const fullPath = path.join(postsDirectory, lang, `${id}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-
     const matterResult = matter(fileContents);
-
     const processedContent = await remark()
         .use(html)
         .process(matterResult.content);
@@ -101,22 +91,20 @@ export function getPostsForSearch() {
       const langDirectory = path.join(postsDirectory, lang);
       try {
           const fileNames = fs.readdirSync(langDirectory);
-
           fileNames.forEach(fileName => {
               const id = fileName.replace(/\.md$/, '');
               const fullPath = path.join(langDirectory, fileName);
               const fileContents = fs.readFileSync(fullPath, 'utf8');
               const { data } = matter(fileContents);
-
               allPosts.push({
                   id,
                   lang,
                   title: data.title || '',
                   excerpt: data.excerpt || '',
-                  category: 'Articles' // Assign a default category
+                  category: 'Articles'
               });
           });
-      } catch (error) {
+      } catch { // FIX: Removed unused error variable
           console.warn(`Could not read posts for language: ${lang}`);
       }
   });

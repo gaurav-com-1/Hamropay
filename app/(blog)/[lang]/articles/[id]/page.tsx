@@ -8,16 +8,16 @@ import Link from 'next/link';
 import { ArticleLayout } from '@/components/ArticleLayout';
 import { SocialShareButtons } from '@/components/SocialShareButtons';
 
-type Props = {
+// This is the direct props type for the generateMetadata function
+type MetadataProps = {
   params: { id: string; lang: Locale };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata({ params }: { params: { id: string; lang: Locale } }): Promise<Metadata> {
+export async function generateMetadata({ params }: MetadataProps): Promise<Metadata> {
   try {
     const postData = await getPostData(params.lang, params.id);
     return { title: postData.title };
-  } catch (_error) {
+  } catch { // FIX: Removed unused _error variable
     return { title: 'Post Not Found' };
   }
 }
@@ -30,7 +30,9 @@ export async function generateStaticParams() {
     }));
 }
 
-export default async function Post({ params }: Props) {
+// ===== THE MAIN FIX IS HERE =====
+// We are typing the props directly in the function signature, not with a separate type alias.
+export default async function Post({ params }: { params: { id: string; lang: Locale } }) {
   try {
     const postData = await getPostData(params.lang, params.id);
     const allPosts = getSortedPostsData(params.lang);
@@ -101,7 +103,7 @@ export default async function Post({ params }: Props) {
         </div>
       </ArticleLayout>
     );
-  } catch (_error) {
+  } catch {
     notFound();
   }
 }
