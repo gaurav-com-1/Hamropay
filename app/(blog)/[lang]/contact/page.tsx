@@ -7,7 +7,7 @@ import { CheckCircle } from 'lucide-react';
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
 
-export default function ContactPage({ params: { lang } }: any) {
+export default function ContactPage({ params: { lang } }: { params: { lang: Locale }}) {
   const [dict, setDict] = useState<Dictionary['contact_page'] | null>(null);
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);

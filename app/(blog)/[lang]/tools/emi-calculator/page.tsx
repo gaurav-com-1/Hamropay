@@ -10,7 +10,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
 
-export default function EMICalculatorPage({ params: { lang } }: any) {
+export default function EMICalculatorPage({ params: { lang } }: { params: { lang: Locale }}) {
   const [dict, setDict] = useState<Dictionary['emi_calculator_page'] | null>(null);
 
   const [loanAmount, setLoanAmount] = useState(25000);
