@@ -8,9 +8,10 @@ import Link from 'next/link';
 import { ArticleLayout } from '@/components/ArticleLayout';
 import { SocialShareButtons } from '@/components/SocialShareButtons';
 
-export async function generateMetadata({ params }: { params: { id: string; lang: Locale } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ id: string; lang: Locale }> }): Promise<Metadata> {
   try {
-    const postData = await getPostData(params.lang, params.id);
+    const resolvedParams = await params;
+    const postData = await getPostData(resolvedParams.lang, resolvedParams.id);
     return { title: postData.title };
   } catch {
     return { title: 'Post Not Found' };
@@ -25,18 +26,19 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Post({ params }: { params: { id: string; lang: Locale } }) {
+export default async function Post({ params }: { params: Promise<{ id: string; lang: Locale }> }) {
   try {
-    const postData = await getPostData(params.lang, params.id);
-    const allPosts = getSortedPostsData(params.lang);
-    const dictionary = await getDictionary(params.lang);
+    const resolvedParams = await params;
+    const postData = await getPostData(resolvedParams.lang, resolvedParams.id);
+    const allPosts = getSortedPostsData(resolvedParams.lang);
+    const dictionary = await getDictionary(resolvedParams.lang);
 
     const relatedPosts = allPosts
-      .filter(post => post.id !== params.id)
+      .filter(post => post.id !== resolvedParams.id)
       .slice(0, 3);
 
     // IMPORTANT: Replace 'https://yourdomain.com' with your actual domain for sharing to work in production.
-    const postUrl = `https://yourdomain.com/${params.lang}/articles/${postData.id}`;
+    const postUrl = `https://yourdomain.com/${resolvedParams.lang}/articles/${postData.id}`;
     
     return (
       <ArticleLayout>
@@ -73,7 +75,7 @@ export default async function Post({ params }: { params: { id: string; lang: Loc
               <h2 className="text-3xl font-bold text-text-primary mb-8 text-center">{dictionary.articles.related_posts}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {relatedPosts.map(post => (
-                  <Link href={`/${params.lang}/articles/${post.id}`} key={post.id} className="group bg-white rounded-2xl shadow-subtle border border-border overflow-hidden flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                  <Link href={`/${resolvedParams.lang}/articles/${post.id}`} key={post.id} className="group bg-white rounded-2xl shadow-subtle border border-border overflow-hidden flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                     <div className="relative w-full h-40">
                       <Image
                         src={post.coverImage}
