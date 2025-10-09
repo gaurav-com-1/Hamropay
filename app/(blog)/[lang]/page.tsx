@@ -148,7 +148,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <ToolCard 
               key={tool.id}
               tool={tool}
-              lang={lang}
+              lang={lang as Locale}
               variant="compact"
               cta={dictionary.tools_page.try_out_cta}
             />
