@@ -8,9 +8,6 @@ import Link from 'next/link';
 import { ArticleLayout } from '@/components/ArticleLayout';
 import { SocialShareButtons } from '@/components/SocialShareButtons';
 
-// ======================= THE FINAL FIX IS HERE =======================
-// We are removing all custom type aliases for page props and using inline types directly.
-
 export async function generateMetadata({ params }: { params: { id: string; lang: Locale } }): Promise<Metadata> {
   try {
     const postData = await getPostData(params.lang, params.id);
