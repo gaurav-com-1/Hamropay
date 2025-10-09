@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { getDictionary } from '@/lib/dictionary';
 import { Locale } from '@/i18n.config';
+import { useParams } from 'next/navigation';
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
 
@@ -21,7 +22,8 @@ const InputField = ({ label, value, onChange, currency = false }: { label: strin
   </div>
 );
 
-export default function CompoundInterestPage({ params: { lang } }) {
+export default function CompoundInterestPage() {
+  const { lang } = useParams<{ lang: Locale }>();
   const [dict, setDict] = useState<Dictionary['compound_interest_page'] | null>(null);
 
   const [initialInvestment, setInitialInvestment] = useState(10000);

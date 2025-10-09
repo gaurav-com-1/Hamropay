@@ -5,12 +5,14 @@ import { getDictionary } from '@/lib/dictionary';
 import { Locale } from '@/i18n.config';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { useParams } from 'next/navigation';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
 
-export default function EMICalculatorPage({ params: { lang } }) {
+export default function EMICalculatorPage() {
+  const { lang } = useParams<{ lang: Locale }>();
   const [dict, setDict] = useState<Dictionary['emi_calculator_page'] | null>(null);
 
   const [loanAmount, setLoanAmount] = useState(25000);

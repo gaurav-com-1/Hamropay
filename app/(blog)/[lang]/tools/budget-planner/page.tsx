@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { getDictionary } from '@/lib/dictionary';
 import { Locale } from '@/i18n.config';
 import { ArrowUpCircle, ArrowDownCircle, Wallet, X } from 'lucide-react';
+import { useParams } from 'next/navigation';
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
 
@@ -14,7 +15,8 @@ type Transaction = {
   type: 'income' | 'expense';
 };
 
-export default function BudgetPlannerPage({ params: { lang } }) {
+export default function BudgetPlannerPage() {
+  const { lang } = useParams<{ lang: Locale }>();
   const [dict, setDict] = useState<Dictionary['budget_planner_page'] | null>(null);
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);

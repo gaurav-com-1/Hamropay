@@ -6,6 +6,7 @@ import { Locale } from "@/i18n.config";
 import Link from 'next/link';
 import { Phone, Mail } from 'lucide-react'; // Removed unused CloseIcon
 import { ParticleCanvas } from '@/components/ParticleCanvas';
+import { useParams } from 'next/navigation';
 
 // Define the type for our dictionary slice
 type BuyPageDictionary = Awaited<ReturnType<typeof getDictionary>>['buy_page'];
@@ -15,7 +16,8 @@ async function getPageDictionary(lang: Locale) {
   return await getDictionary(lang);
 }
 
-export default function BuyPage({ params: { lang } }) {
+export default function BuyPage() {
+  const { lang } = useParams<{ lang: Locale }>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   // Give the state a proper type instead of 'any'
   const [dict, setDict] = useState<BuyPageDictionary | null>(null);
