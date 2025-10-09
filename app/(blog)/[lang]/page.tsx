@@ -6,10 +6,10 @@ import Image from "next/image";
 import { toolsData } from '@/data/tools';
 import { ToolCard } from '@/components/ToolCard'; 
 
-export default async function Home({ params }: { params: Promise<{ lang: Locale }>}) {
+export default async function Home({ params }: { params: Promise<{ lang: string }>}) {
   const { lang } = await params;
-  const dictionary = await getDictionary(lang);
-  const allPosts = getSortedPostsData(lang);
+  const dictionary = await getDictionary(lang as Locale);
+  const allPosts = getSortedPostsData(lang as Locale);
 
   const mainPost = allPosts[0];
   const featuredPosts = allPosts.filter(post => post.featured).slice(0, 5);

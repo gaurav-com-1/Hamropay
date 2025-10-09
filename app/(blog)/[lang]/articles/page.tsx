@@ -5,19 +5,19 @@ import { getSortedPostsData } from '@/lib/posts';
 import Link from "next/link";
 import Image from "next/image";
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }>}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }>}): Promise<Metadata> {
   const { lang } = await params;
-  const dictionary = await getDictionary(lang);
+  const dictionary = await getDictionary(lang as Locale);
   return {
     title: dictionary.articles.title,
     description: dictionary.articles.subtitle,
   };
 }
 
-export default async function ArticlesPage({ params }: { params: Promise<{ lang: Locale }>}) {
+export default async function ArticlesPage({ params }: { params: Promise<{ lang: string }>}) {
   const { lang } = await params;
-  const dict = await getDictionary(lang);
-  const posts = getSortedPostsData(lang);
+  const dict = await getDictionary(lang as Locale);
+  const posts = getSortedPostsData(lang as Locale);
 
   return (
     <div className="max-w-6xl mx-auto">

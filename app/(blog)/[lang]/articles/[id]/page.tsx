@@ -8,10 +8,10 @@ import Link from 'next/link';
 import { ArticleLayout } from '@/components/ArticleLayout';
 import { SocialShareButtons } from '@/components/SocialShareButtons';
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string; lang: Locale }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ id: string; lang: string }> }): Promise<Metadata> {
   try {
     const resolvedParams = await params;
-    const postData = await getPostData(resolvedParams.lang, resolvedParams.id);
+    const postData = await getPostData(resolvedParams.lang as Locale, resolvedParams.id);
     return { title: postData.title };
   } catch {
     return { title: 'Post Not Found' };
@@ -26,12 +26,12 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Post({ params }: { params: Promise<{ id: string; lang: Locale }> }) {
+export default async function Post({ params }: { params: Promise<{ id: string; lang: string }> }) {
   try {
     const resolvedParams = await params;
-    const postData = await getPostData(resolvedParams.lang, resolvedParams.id);
-    const allPosts = getSortedPostsData(resolvedParams.lang);
-    const dictionary = await getDictionary(resolvedParams.lang);
+    const postData = await getPostData(resolvedParams.lang as Locale, resolvedParams.id);
+    const allPosts = getSortedPostsData(resolvedParams.lang as Locale);
+    const dictionary = await getDictionary(resolvedParams.lang as Locale);
 
     const relatedPosts = allPosts
       .filter(post => post.id !== resolvedParams.id)

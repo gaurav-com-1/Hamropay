@@ -2,18 +2,18 @@ import { getDictionary } from "@/lib/dictionary"
 import { Locale } from "@/i18n.config"
 import { Metadata } from 'next'
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
-  const dictionary = await getDictionary(lang)
+  const dictionary = await getDictionary(lang as Locale)
   return {
     title: dictionary.compare.title,
     description: dictionary.compare.subtitle,
   }
 }
 
-export default async function ComparePage({ params }: { params: Promise<{ lang: Locale }>}) {
+export default async function ComparePage({ params }: { params: Promise<{ lang: string }>}) {
   const { lang } = await params;
-  const dict = await getDictionary(lang)
+  const dict = await getDictionary(lang as Locale)
   const content = dict.compare
 
   const comparisonData = [
