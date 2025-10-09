@@ -5,7 +5,8 @@ import { getSortedPostsData } from '@/lib/posts';
 import Link from "next/link";
 import Image from "next/image";
 
-export async function generateMetadata({ params: { lang } }: { params: { lang: Locale }}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }>}): Promise<Metadata> {
+  const { lang } = await params;
   const dictionary = await getDictionary(lang);
   return {
     title: dictionary.articles.title,
@@ -13,7 +14,8 @@ export async function generateMetadata({ params: { lang } }: { params: { lang: L
   };
 }
 
-export default async function ArticlesPage({ params: { lang } }: { params: { lang: Locale }}) {
+export default async function ArticlesPage({ params }: { params: Promise<{ lang: Locale }>}) {
+  const { lang } = await params;
   const dict = await getDictionary(lang);
   const posts = getSortedPostsData(lang);
 
