@@ -14,7 +14,7 @@ type Transaction = {
   type: 'income' | 'expense';
 };
 
-export default function BudgetPlannerPage({ params: { lang } }: { params: { lang: Locale }}) {
+export default function BudgetPlannerPage({ params: { lang } }) {
   const [dict, setDict] = useState<Dictionary['budget_planner_page'] | null>(null);
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
