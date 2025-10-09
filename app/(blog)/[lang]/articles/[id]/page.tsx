@@ -1,5 +1,5 @@
-import { getPostData, getAllPostIds, getSortedPostsData } from '@/lib/posts'; // Import getSortedPostsData
-import { getDictionary } from '@/lib/dictionary'; // Import getDictionary
+import { getPostData, getAllPostIds, getSortedPostsData } from '@/lib/posts';
+import { getDictionary } from '@/lib/dictionary';
 import { Locale } from '@/i18n.config';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
@@ -9,10 +9,11 @@ import { ArticleLayout } from '@/components/ArticleLayout';
 import { SocialShareButtons } from '@/components/SocialShareButtons';
 
 type Props = {
-  params: { id: string, lang: Locale }
-}
+  params: { id: string; lang: Locale };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { id: string; lang: Locale } }): Promise<Metadata> {
   try {
     const postData = await getPostData(params.lang, params.id);
     return { title: postData.title };
@@ -45,7 +46,6 @@ export default async function Post({ params }: Props) {
       <ArticleLayout>
         <div className="max-w-3xl mx-auto">
           <article>
-            {/* Post Header */}
             <header className="mb-8">
               <h1 className="text-4xl md:text-5xl font-extrabold text-primary mb-4">{postData.title}</h1>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-text-secondary">
@@ -56,7 +56,6 @@ export default async function Post({ params }: Props) {
               </div>
             </header>
             
-            {/* Cover Image */}
             <div className="relative w-full h-64 md:h-96 mb-8 rounded-lg overflow-hidden shadow-lg">
                 <Image
                     src={postData.coverImage}
@@ -67,14 +66,12 @@ export default async function Post({ params }: Props) {
                 />
             </div>
 
-            {/* Post Content */}
             <div
               className="prose prose-lg max-w-none prose-h2:text-primary prose-a:text-secondary"
               dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
             />
           </article>
 
-          {/* ======================= THE NEW RELATED POSTS SECTION ======================= */}
           {relatedPosts.length > 0 && (
             <section className="mt-16 pt-12 border-t border-border">
               <h2 className="text-3xl font-bold text-text-primary mb-8 text-center">{dictionary.articles.related_posts}</h2>
