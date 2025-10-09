@@ -4,7 +4,8 @@ import { Metadata } from 'next';
 import { toolsData } from '@/data/tools';
 import { ToolCard } from '@/components/ToolCard';
 
-export async function generateMetadata({ params: { lang } }: { params: { lang: Locale }}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
+  const { lang } = await params;
   const dictionary = await getDictionary(lang);
   return {
     title: dictionary.tools_page.title,
@@ -12,7 +13,8 @@ export async function generateMetadata({ params: { lang } }: { params: { lang: L
   };
 }
 
-export default async function ToolsPage({ params: { lang } }: { params: { lang: Locale }}) {
+export default async function ToolsPage({ params }: { params: Promise<{ lang: Locale }>}) {
+  const { lang } = await params;
   const dictionary = await getDictionary(lang);
   
   return (

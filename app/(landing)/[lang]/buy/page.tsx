@@ -15,7 +15,7 @@ async function getPageDictionary(lang: Locale) {
   return await getDictionary(lang);
 }
 
-export default function BuyPage({ params: { lang } }: { params: { lang: Locale }}) {
+export default function BuyPage({ params: { lang } }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // Give the state a proper type instead of 'any'
   const [dict, setDict] = useState<BuyPageDictionary | null>(null);

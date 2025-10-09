@@ -6,7 +6,8 @@ import { Toaster } from 'react-hot-toast';
 import { getPostsForSearch } from '@/lib/posts';
 import { Metadata } from 'next';
 
-export async function generateMetadata({ params: { lang } }: { params: { lang: Locale }}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
+  const { lang } = await params;
   const dictionary = await getDictionary(lang);
   return {
     title: {
@@ -22,16 +23,17 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode
-  params: { lang: Locale }
+  params: Promise<{ lang: Locale }>
 }) {
-  const dictionary = await getDictionary(params.lang);
+  const { lang } = await params;
+  const dictionary = await getDictionary(lang);
   const searchablePosts = getPostsForSearch();
 
   return (
     <div className="flex flex-col min-h-screen">
       <Toaster position="bottom-center" />
       <Header 
-        lang={params.lang} 
+        lang={lang} 
         dictionary={dictionary.header} 
         searchablePosts={searchablePosts} 
       />

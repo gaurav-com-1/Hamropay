@@ -6,7 +6,8 @@ import Image from "next/image";
 import { toolsData } from '@/data/tools';
 import { ToolCard } from '@/components/ToolCard'; 
 
-export default async function Home({ params: { lang } }: { params: { lang: Locale }}) {
+export default async function Home({ params }: { params: Promise<{ lang: Locale }>}) {
+  const { lang } = await params;
   const dictionary = await getDictionary(lang);
   const allPosts = getSortedPostsData(lang);
 
